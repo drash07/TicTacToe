@@ -7,9 +7,10 @@ let turn = 0; // Keeps track if X or O player's turn
 let winner = false;
 
 // CREATE PLAYER
-const player = (name) => {
+const player = (name, score) => {
   name = name;
-  return {name};
+  score = score;
+  return {name, score};
  };
 
  let playerX = player("");
@@ -37,11 +38,28 @@ function addPlayers(event) {
 
   const playerFormContainer = document.querySelector('.enter-players');
   const boardMain = document.querySelector('.board__main');
+  const scoreBoard = document.querySelector('.score-board-container');
   playerFormContainer.classList.add('hide-container');
   boardMain.classList.remove('hide-container');
+  scoreBoard.classList.remove('hide-container');
 
   playerX.name = this.player1.value;
   playerY.name = this.player2.value;
+  playerX.score = 0;
+  playerY.score = 0;
+
+  // update the player names in the score board
+  const player1_name = document.querySelector('.player1-name');
+  const player2_name = document.querySelector('.player2-name');
+  const score1 = document.querySelector('.score1');
+  const score2 = document.querySelector('.score2');
+
+  player1_name.innerText = playerX.name;
+  player2_name.innerText = playerY.name;
+
+  score1.innerText = playerX.score;
+  score2.innerText = playerY.score;
+
   buildBoard();
 }
 
@@ -142,22 +160,28 @@ function isWinner() {
           cell.classList.add('board__cell--winner');
         }
       });
+      const score1 = document.querySelector('.score1');
+      const score2 = document.querySelector('.score2');
 
       let currentPlayerText = document.querySelector('.board___player-turn');
       if (currentPlayer() === 'X') {
         currentPlayerText.innerHTML = `
           <div class="congratulations">Congratulations ${playerX.name}</div>
-          <div class="u-r-winner">You are our winner!</div>
+          <div class="u-r-winner">You are our winner for this round!</div>
         `;
         winner = true;
+        playerX.score += 1;
+        score1.innerText = playerX.score;
         removeCellClickListener();
         return true;
       } else {
         currentPlayerText.innerHTML = `
           <div class="congratulations">Congratulations ${playerY.name}</div>
-          <div class="u-r-winner">You are our winner!</div>
+          <div class="u-r-winner">You are our winner for this round!</div>
         `;
         winner = true;
+        playerY.score += 1;
+        score2.innerText = playerY.score;
         removeCellClickListener();
         return true;
       }

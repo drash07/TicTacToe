@@ -50,9 +50,11 @@ function addPlayers(event) {
   const playerFormContainer = document.querySelector('.enter-players');
   const boardMain = document.querySelector('.board__main');
   const scoreBoard = document.querySelector('.score-board-container');
+  const goBackButton = document.querySelector('#go-back');
   playerFormContainer.classList.add('hide-container');
   boardMain.classList.remove('hide-container');
   scoreBoard.classList.remove('hide-container');
+  goBackButton.style.display = 'inline';
 
   playerX.name = this.player1.value.charAt(0).toUpperCase() + this.player1.value.slice(1);
   playerY.name = this.player2.value.charAt(0).toUpperCase() + this.player2.value.slice(1);
@@ -265,10 +267,15 @@ function goBack() {
   const playerFormContainer = document.querySelector('.enter-players');
   const scoreBoard = document.querySelector('.score-board-container');
   const boardMain = document.querySelector('.board__main');
+  const goBackButton = document.querySelector('#go-back');
   let resetContainer = document.querySelector('.reset');
+  const inputField = document.querySelectorAll('.input-field');
   playerFormContainer.classList.remove('hide-container');
   scoreBoard.classList.add('hide-container');
   boardMain.classList.add('hide-container');
   resetContainer.classList.add('reset--hidden');
   goBackButton.style.display = 'none';
+  inputField.forEach((input) => {
+    input.value = '';
+  });
 }

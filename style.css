@@ -175,3 +175,8 @@
   padding-top: 20px;
   font-size: 18px;
 }
+
+#go-back {
+  position: absolute;
+  left: 8%;
+}

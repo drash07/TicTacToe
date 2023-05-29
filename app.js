@@ -25,14 +25,25 @@ function app() {
 
   let replayButton = document.querySelector('.replay-btn');
   replayButton.addEventListener('click', resetBoard);
+
+  const goBackButton = document.querySelector('#go-back');
+  goBackButton.addEventListener('click', goBack);
+  goBackButton.style.display = 'none';
 }
 
 // Add PLAYERS
 function addPlayers(event) {
   event.preventDefault();
 
+  // alert on empty name field
   if (this.player1.value === '' || this.player2.value === '') {
     alert('You Must Enter a Name for Each Field');
+    return;
+  }
+
+  // player names have to be different
+  if(this.player1.value === this.player2.value) {
+    alert('Player names must be different');
     return;
   }
 
@@ -43,8 +54,8 @@ function addPlayers(event) {
   boardMain.classList.remove('hide-container');
   scoreBoard.classList.remove('hide-container');
 
-  playerX.name = this.player1.value;
-  playerY.name = this.player2.value;
+  playerX.name = this.player1.value.charAt(0).toUpperCase() + this.player1.value.slice(1);
+  playerY.name = this.player2.value.charAt(0).toUpperCase() + this.player2.value.slice(1);
   playerX.score = 0;
   playerY.score = 0;
 
@@ -247,4 +258,17 @@ function removeCellClickListener() {
   allCells.forEach( cell => {
     cell.removeEventListener('click', makeMove);
   });
+}
+
+//GO BACK
+function goBack() {
+  const playerFormContainer = document.querySelector('.enter-players');
+  const scoreBoard = document.querySelector('.score-board-container');
+  const boardMain = document.querySelector('.board__main');
+  let resetContainer = document.querySelector('.reset');
+  playerFormContainer.classList.remove('hide-container');
+  scoreBoard.classList.add('hide-container');
+  boardMain.classList.add('hide-container');
+  resetContainer.classList.add('reset--hidden');
+  goBackButton.style.display = 'none';
 }

@@ -47,6 +47,14 @@ function addPlayers(event) {
     return;
   }
 
+  var regex = /^[A-Za-z]+$/;
+  var isValid = regex.test(this.player1.value) && regex.test(this.player2.value);
+  
+  if (!isValid) {
+    alert("Player name should only contain alphabetical characters (A-Z or a-z).");
+    return;
+  }
+
   const playerFormContainer = document.querySelector('.enter-players');
   const boardMain = document.querySelector('.board__main');
   const scoreBoard = document.querySelector('.score-board-container');
